@@ -1,0 +1,28 @@
+body {
+  background-color: white;
+  color: black;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1A1A1A;
+    color: aliceblue;
+    font-family: 'Segoe UI', sans-serif;
+  }
+}
+
+section {
+  display: block;
+}
+.section {
+  width: 50%;
+  height: 50%;
+}
+svg {
+  border-style: dashed;
+  border-color: white;
+}
+g:hover {
+  fill: blue;
+}
