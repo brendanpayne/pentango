@@ -22,7 +22,6 @@ section {
 svg {
   border-style: dashed;
   border-color: white;
-}
-g:hover {
-  fill: blue;
+  width: 50%;
+  height: 50%;
 }
