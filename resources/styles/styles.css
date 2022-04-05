@@ -20,8 +20,46 @@ section {
   height: 50%;
 }
 svg {
-  border-style: dashed;
-  border-color: white;
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+g {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+g:active {
+  animation: shrink 0.1s ease-in forwards; 
+}
+
+g:not(:active) {
+  animation: grow 0.1s ease-in forwards;
+}
+
+@keyframes shrink {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.9) translate(15px, 15px);
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0.9) translate(15px, 15px);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+#guesses {
+  text-align: center;
+  font: bold 24px sans-serif;
+  color: white;
 }
