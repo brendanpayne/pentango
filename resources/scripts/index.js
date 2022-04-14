@@ -42,6 +42,7 @@ submit.addEventListener(`click`, function() {
             console.log(`${selection.join('')} is a valid word`);
             guesses.textContent = ``;
             selection = [];
+            storeWord(selection.join(''), calculateScore(selection.join('')));
         } else {
             console.log(`${selection.join('')} is not a valid word`);
             popUp(`${selection.join('')} is not a valid word`);

@@ -1,3 +1,5 @@
+let wordbank = [];
+
 // get random letters from the alphabet
 function getRandomLetters(numberOfLetters) {
     let letters = [];
@@ -19,7 +21,7 @@ function getRandomLetters(numberOfLetters) {
 
 // check to see if word is valid
 function isValidWord(word) {
-    const url = `https://api.datamuse.com/words?rel_jja=${word}`;
+    const url = `https://api.datamuse.com/words?rel_jja=${word}`; // get words that are often described by the word to determine if it is a valid word
     const response = fetch(url);
 
     return response.then(response => response.json()).then(data => {
@@ -28,4 +30,30 @@ function isValidWord(word) {
         }
         return false;
     });
+};
+
+// calculate the score for a word
+function calculateScore(word) {
+    const url = `https://api.datamuse.com/words?rel_jja=${word}`;
+    const response = fetch(url);
+
+    // get the score of the word from the response
+    return response.then(response => response.json()).then(data => {
+        if (data.length > 0) {
+            score =(data[data.length].score)
+            return score;
+        }
+        return 0;
+    });
 }
+
+// store the word in the word bank
+function storeWord(word, score) {
+    if (isValidWord(word)) {
+        wordbank.push({
+            word: word,
+            score: score
+        });
+        document.getElementById('word').textContent = wordbank.map(word => word.word).join(' ');
+    }
+};
