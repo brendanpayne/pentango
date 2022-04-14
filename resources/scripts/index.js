@@ -22,3 +22,26 @@ for (var i=0; i < document.getElementsByTagName(`g`).length; i++) {
         document.getElementById(`guesses`).textContent = `${selection.join(' ')}`;
     })
 }
+
+var submit = document.getElementById(`submit`);
+submit.addEventListener(`click`, function() {
+    // check to see if the selection is valid
+    isValidWord(selection.join('')).then(function(result) {
+        if (result) {
+            console.log(`${selection.join('')} is a valid word`);
+            document.getElementById(`guesses`).textContent = ``;
+            selection = [];
+        } else {
+            console.log(`${selection.join('')} is not a valid word`);
+            alert(`${selection.join('')} is not a valid word`);
+        }
+    });
+});
+
+var remove = document.getElementById(`delete`);
+remove.addEventListener(`click`, function() {
+    // remove the last letter from the selection
+    selection.pop();
+    console.log(`current guess: ${selection.join('')}`);
+    document.getElementById(`guesses`).textContent = `${selection.join(' ')}`;
+});
