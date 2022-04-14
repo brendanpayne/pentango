@@ -2,11 +2,13 @@ const letters = getRandomLetters(5);
 
 let selection = [];
 
+let guesses = document.getElementById(`guesses`);
+
 createPentagon(`polygon_0`, 50, 135, 140, 36, `white`, letters[0]);
 
 for (var i = 0; i < 5;i++) {
     var curStep = i * (2 * Math.PI / 5) + ((Math.PI / 180.0) * -18);
-    createPentagon(`polygon_${i+1}`, 50, 135+ (90 * Math.cos(curStep)), 140 + (90 * Math.sin(curStep)), 0, `white`, `${letters[i+1]}`);
+    createPentagon(`polygon_${i+1}`, 50, 135+ (90 * Math.cos(curStep)), 140 + (90 * Math.sin(curStep)), 0, `red`, `${letters[i+1]}`);
 }
 
 for (var i=0; i < document.getElementsByTagName(`g`).length; i++) {
@@ -19,8 +21,17 @@ for (var i=0; i < document.getElementsByTagName(`g`).length; i++) {
         selection.push(polygon.lastChild.textContent);
         console.log(`you clicked ${polygon.lastChild.textContent}`);
         console.log(`current guess: ${selection.join('')}`);
-        document.getElementById(`guesses`).textContent = `${selection.join(' ')}`;
+        guesses.textContent = `${selection.join(' ')}`;
     })
+}
+
+function popUp(message) {
+    let popup = document.getElementById(`popup`);
+    popup.textContent = message;
+    popup.style.display = `inline-block`;
+    setTimeout(function() {
+        popup.style.display = `none`;
+    }, 2000);
 }
 
 var submit = document.getElementById(`submit`);
@@ -29,11 +40,15 @@ submit.addEventListener(`click`, function() {
     isValidWord(selection.join('')).then(function(result) {
         if (result) {
             console.log(`${selection.join('')} is a valid word`);
-            document.getElementById(`guesses`).textContent = ``;
+            guesses.textContent = ``;
             selection = [];
         } else {
             console.log(`${selection.join('')} is not a valid word`);
-            alert(`${selection.join('')} is not a valid word`);
+            popUp(`${selection.join('')} is not a valid word`);
+            guesses.classList.add('animate__animated', 'animate__shakeX');
+            setTimeout(function() {
+                guesses.classList.remove('animate__animated', 'animate__shakeX');
+            }, 500);
         }
     });
 });
@@ -43,5 +58,5 @@ remove.addEventListener(`click`, function() {
     // remove the last letter from the selection
     selection.pop();
     console.log(`current guess: ${selection.join('')}`);
-    document.getElementById(`guesses`).textContent = `${selection.join(' ')}`;
+    guesses.textContent = `${selection.join(' ')}`;
 });
