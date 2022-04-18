@@ -36,24 +36,26 @@ var submit = document.getElementById(`submit`);
 submit.addEventListener(`click`, function() {
     var word = selection.join('');
     // check to see if the selection is valid
-    isValidWord(word).then(function(result) {
-        if (result) {
-            //console.log(`${word} is a valid word`);
-            guesses.textContent = ``;
-            selection = [];
-            storeWord(word);
-        } else {
-            //console.log(`${word} is not a valid word`);
-            guesses.classList.add('animate__animated', 'animate__shakeX');
-            setTimeout(function() {
+    if (word.length > 0) {
+        isValidWord(word).then(function(result) {
+            if (result) {
+                //console.log(`${word} is a valid word`);
                 guesses.textContent = ``;
                 selection = [];
-            }, 1000)
-            setTimeout(function() {
-                guesses.classList.remove('animate__animated', 'animate__shakeX');
-            }, 2000)
-        }
-    });
+                storeWord(word);
+            } else {
+                //console.log(`${word} is not a valid word`);
+                guesses.classList.add('animate__animated', 'animate__shakeX');
+                setTimeout(function() {
+                    guesses.textContent = ``;
+                    selection = [];
+                }, 1000)
+                setTimeout(function() {
+                    guesses.classList.remove('animate__animated', 'animate__shakeX');
+                }, 2000)
+            }
+        });
+    };
 });
 
 var remove = document.getElementById(`delete`);
