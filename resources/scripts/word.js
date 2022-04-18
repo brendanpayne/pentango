@@ -24,11 +24,21 @@ function isValidWord(word) {
     const url = `https://api.datamuse.com/words?rel_jja=${word}`; // get words that are often described by the word to determine if it is a valid word
     const response = fetch(url);
 
+    const wb = [];
+    wordbank.forEach(w => wb.push(w.word));
+
     return response.then(response => response.json()).then(data => {
-        if (data.length > 0) {
-            return true;
+        if (data.length === 0) {
+            popUp(`${word} is not a valid word.`);
+            return false;
+        } else if (wb.includes(word)) {
+            popUp(`${word} has already been used.`);
+            return false;
+        } else if (word.length <= 2) {
+            popUp(`Word is too short.`);
+            return false;
         }
-        return false;
+        return true;
     });
 };
 
