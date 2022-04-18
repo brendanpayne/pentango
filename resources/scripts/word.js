@@ -34,26 +34,40 @@ function isValidWord(word) {
 
 // calculate the score for a word
 function calculateScore(word) {
-    const url = `https://api.datamuse.com/words?rel_jja=${word}`;
-    const response = fetch(url);
-
-    // get the score of the word from the response
-    return response.then(response => response.json()).then(data => {
-        if (data.length > 0) {
-            score =(data[data.length].score)
-            return score;
-        }
-        return 0;
+    let score = 0;
+    word.split(``).forEach(function(letter) {
+        score += letter.charCodeAt(0) - 64; // A = 1, B = 2, etc.
     });
+    return score;
 }
 
-// store the word in the word bank
-function storeWord(word, score) {
-    if (isValidWord(word)) {
-        wordbank.push({
-            word: word,
-            score: score
-        });
-        document.getElementById('word').textContent = wordbank.map(word => word.word).join(' ');
-    }
+// store the word in the word bank and update the word bank display
+function storeWord(word) {
+    wordbank.push({
+        word: word,
+        score: calculateScore(word)
+    });
+    updateWordBank();
 };
+
+function updateWordBank() {
+    let wb = document.getElementById(`word`);
+    wb.textContent = ``;
+    
+    // sort the word bank by score
+    wordbank.sort(function(a, b) {
+        return b.score - a.score;
+    });
+
+    // display the word bank
+    wordbank.forEach(function(word) {
+        wb.innerText += `${word.word} - ${word.score}\n`;
+    });
+
+    // update the total score
+    let total = document.getElementById(`total`);
+    total.textContent = wordbank.reduce(function(total, word) {
+        return total + word.score;
+    }, 0);
+
+}
