@@ -19,8 +19,6 @@ for (var i=0; i < document.getElementsByTagName(`g`).length; i++) {
         e.preventDefault();
         // push the letter to the selection array
         selection.push(polygon.lastChild.textContent);
-        console.log(`you clicked ${polygon.lastChild.textContent}`);
-        console.log(`current guess: ${selection.join('')}`);
         guesses.textContent = `${selection.join(' ')}`;
     })
 }
@@ -40,12 +38,12 @@ submit.addEventListener(`click`, function() {
     // check to see if the selection is valid
     isValidWord(word).then(function(result) {
         if (result) {
-            console.log(`${word} is a valid word`);
+            //console.log(`${word} is a valid word`);
             guesses.textContent = ``;
             selection = [];
             storeWord(word);
         } else {
-            console.log(`${word} is not a valid word`);
+            //console.log(`${word} is not a valid word`);
             guesses.classList.add('animate__animated', 'animate__shakeX');
             setTimeout(function() {
                 guesses.textContent = ``;
@@ -62,6 +60,6 @@ var remove = document.getElementById(`delete`);
 remove.addEventListener(`click`, function() {
     // remove the last letter from the selection
     selection.pop();
-    console.log(`current guess: ${selection.join('')}`);
+    //console.log(`current guess: ${selection.join('')}`);
     guesses.textContent = `${selection.join(' ')}`;
 });
