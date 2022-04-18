@@ -4,7 +4,7 @@ let selection = [];
 
 let guesses = document.getElementById(`guesses`);
 
-createPentagon(`polygon_0`, 50, 135, 140, 36, `white`, letters[0]);
+createPentagon(`polygon_0`, 50, 135, 140, 36, `pink`, letters[0]);
 
 for (var i = 0; i < 5;i++) {
     var curStep = i * (2 * Math.PI / 5) + ((Math.PI / 180.0) * -18);
@@ -36,20 +36,24 @@ function popUp(message) {
 
 var submit = document.getElementById(`submit`);
 submit.addEventListener(`click`, function() {
+    var word = selection.join('');
     // check to see if the selection is valid
-    isValidWord(selection.join('')).then(function(result) {
+    isValidWord(word).then(function(result) {
         if (result) {
-            console.log(`${selection.join('')} is a valid word`);
+            console.log(`${word} is a valid word`);
             guesses.textContent = ``;
             selection = [];
-            storeWord(selection.join(''), calculateScore(selection.join('')));
+            storeWord(word);
         } else {
-            console.log(`${selection.join('')} is not a valid word`);
-            popUp(`${selection.join('')} is not a valid word`);
+            console.log(`${word} is not a valid word`);
             guesses.classList.add('animate__animated', 'animate__shakeX');
             setTimeout(function() {
+                guesses.textContent = ``;
+                selection = [];
+            }, 1000)
+            setTimeout(function() {
                 guesses.classList.remove('animate__animated', 'animate__shakeX');
-            }, 500);
+            }, 2000)
         }
     });
 });
