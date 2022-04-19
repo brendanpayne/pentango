@@ -19,26 +19,42 @@ function getRandomLetters(numberOfLetters) {
     return letters;
 }
 
+function shuffleLetters(letters) {
+    // shuffles the letters except for the first one
+    let shuffled = [letters[0]];
+    letters.splice(0, 1);
+    console.log(letters);
+    while (letters.length > 0) {
+        let index = Math.floor(Math.random() * letters.length);
+        shuffled.push(letters[index]);
+        letters.splice(index, 1);
+    }
+    console.log(shuffled);
+    return shuffled;
+}
+
 // check to see if word is valid
 function isValidWord(word) {
-    const url = `https://api.datamuse.com/words?rel_jja=${word}`; // get words that are often described by the word to determine if it is a valid word
+    const url = `https://wagon-dictionary.herokuapp.com/${word}`;
     const response = fetch(url);
 
     const wb = [];
     wordbank.forEach(w => wb.push(w.word));
 
-    return response.then(response => response.json()).then(data => {
-        if (data.length === 0) {
-            popUp(`${word} is not a valid word.`);
-            return false;
-        } else if (wb.includes(word)) {
-            popUp(`${word} has already been used.`);
-            return false;
-        } else if (word.length <= 2) {
-            popUp(`Word is too short.`);
-            return false;
-        }
-        return true;
+    return response.then(function(response) {
+        return response.json().then(function(json) {
+            if (!json.found) {
+                popUp(`${word} is not a valid word.`);
+                return false;
+            } else if (wb.includes(word)) {
+                popUp(`${word} has already been used.`);
+                return false;
+            } else if (word.length <= 2) {
+                popUp(`Word is too short.`);
+                return false;
+            }
+            return true;
+        });
     });
 };
 
