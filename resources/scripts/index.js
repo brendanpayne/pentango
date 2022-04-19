@@ -13,8 +13,6 @@ for (var i = 0; i < 5;i++) {
 
 for (var i=0; i < document.getElementsByTagName(`g`).length; i++) {
     let polygon = document.getElementById(`polygon_${i}`);
-    polygon.addEventListener(`mousedown`, function() {
-    });
     polygon.addEventListener('click', function(e) {
         e.preventDefault();
         // push the letter to the selection array
