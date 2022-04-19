@@ -5,6 +5,8 @@ body {
 }
 
 .topnav {
+  z-index: 100;
+  width: 100%;
   background-color: #333;
   color: aliceblue;
 }
@@ -20,7 +22,6 @@ body {
 
 .topnav a:hover {
   background-color: #330606;
-  color: black;
 }
 
 .topnav a.active {
@@ -87,24 +88,6 @@ g:not(:active) {
   }
   to {
     transform: scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
@@ -204,6 +187,10 @@ button {
     flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+  .topnav {
+    z-index: 1000;
+    position: fixed;
   }
   .game-container {
     float: top;
