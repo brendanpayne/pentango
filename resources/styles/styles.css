@@ -98,7 +98,6 @@ g:not(:active) {
   align-items: center;
   width: 100%;
   height: 600px;
-  border:solid 1px #00F
 }
 
 .game-container {
@@ -106,14 +105,12 @@ g:not(:active) {
   padding: 20px;
   width: 50%;
   height: 100%;
-  border:solid 1px #F00
 }
 
 .word-container {
   float: right;
   margin: 20px;
   width: 50%;
-  border:solid 1px #0F0
 }
 
 .guess-container{
@@ -121,7 +118,6 @@ g:not(:active) {
   width: auto;
   height: 30px;
   padding: 5px;
-  border:solid 1px #FF0;
 }
 
 #guesses {
@@ -189,21 +185,21 @@ button {
     height: 100%;
   }
   .topnav {
-    z-index: 1000;
     position: fixed;
   }
   .game-container {
     float: top;
     margin: 20px;
+    padding-top: 20px;
     width: 100%;
     height: 100%;
-    border:dashed 1px #F00
   }
   .word-container {
     float: bottom;
     margin: 0px;
+    padding-left: 10%;
+    padding-right: 10%;
     width: 100%;
-    border:dashed 1px #0F0
   }
   .button-container {
     width: 100%;
