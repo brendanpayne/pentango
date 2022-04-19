@@ -1,4 +1,4 @@
-const letters = getRandomLetters(5);
+let letters = getRandomLetters(5);
 
 let selection = [];
 
@@ -45,17 +45,30 @@ submit.addEventListener(`click`, function() {
                 storeWord(word);
             } else {
                 //console.log(`${word} is not a valid word`);
-                guesses.classList.add('animate__animated', 'animate__shakeX');
-                setTimeout(function() {
+                animateCSS(guesses, `shakeX`).then((result) => {
                     guesses.textContent = ``;
-                    selection = [];
-                }, 1000)
-                setTimeout(function() {
-                    guesses.classList.remove('animate__animated', 'animate__shakeX');
-                }, 2000)
+                    selection = [];                    
+                });
             }
         });
     };
+});
+
+var reset = document.getElementById(`reset`);
+let icon = document.createElement(`i`);
+icon.classList.add('fa', 'fa-refresh');
+reset.appendChild(icon);
+reset.addEventListener(`click`, function() {
+    letters = shuffleLetters(letters)
+    for (var i = 0; i < document.getElementsByTagName(`g`).length; i++) {
+        let polygon = document.getElementById(`polygon_${i}`);
+        let letter = letters[i];
+        animateCSS(polygon.lastChild, 'fadeOut').then((result) => {
+            //polygon.lastChild.style.display = `none`;
+            polygon.lastChild.textContent = `${letter}`;
+            animateCSS(polygon.lastChild, 'fadeIn');
+        });
+    }
 });
 
 var remove = document.getElementById(`delete`);
